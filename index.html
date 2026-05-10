@@ -481,17 +481,9 @@
 
             // ── Wheel ─────────────────────────────────────────────────
             window.addEventListener('wheel', (e) => {
-                // Always prevent default first — we own all scroll on this page.
-                // This ensures two-finger trackpad scroll always works on section 0.
-                e.preventDefault();
-
-                if (isAnimating) { wheelAcc = 0; return; }
+                if (isAnimating) { e.preventDefault(); wheelAcc = 0; return; }
 
                 const sec       = sections[current];
-                // Only defer to internal scroll if the section is explicitly scrollable
-                // (overflow-y: auto/scroll) AND has overflow content.
-                // This prevents the hero's absolutely-positioned children from
-                // falsely triggering the "scrollable" path.
                 const ovY       = window.getComputedStyle(sec).overflowY;
                 const scrollable = (ovY === 'auto' || ovY === 'scroll')
                                    && sec.scrollHeight > sec.clientHeight + 2;
@@ -499,10 +491,13 @@
                 if (scrollable) {
                     const atTop    = sec.scrollTop <= 1;
                     const atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 2;
+                    // Not at boundary — let browser scroll the section naturally
                     if (e.deltaY > 0 && !atBottom) { wheelAcc = 0; return; }
                     if (e.deltaY < 0 && !atTop)    { wheelAcc = 0; return; }
                 }
 
+                // At boundary or non-scrollable — take over and snap
+                e.preventDefault();
                 wheelAcc += e.deltaY;
                 clearTimeout(wheelTimer);
                 wheelTimer = setTimeout(() => { wheelAcc = 0; }, 200);
@@ -552,6 +547,31 @@
             // ── Boot ──────────────────────────────────────────────────
             updateNavbar(0);
             triggerReveals(sections[0]);
+
+            // ── Hash navigation on page load ──────────────────────────
+            // When arriving from another page via index.html#flavors etc.,
+            // jump instantly to the target section (no animation).
+            (function checkHash() {
+                const hash = window.location.hash;
+                if (!hash) return;
+                const map = { '#flavors': 4, '#zero': 5, '#contact': 5 };
+                const target = map[hash];
+                if (target === undefined || target === 0) return;
+
+                // Instant jump — no slide animation, just show the right section
+                sections.forEach((sec, i) => {
+                    sec.style.transition    = 'none';
+                    sec.style.transform     = 'translateY(0)';
+                    sec.style.opacity       = i === target ? '1' : '0';
+                    sec.style.pointerEvents = i === target ? 'all' : 'none';
+                });
+                current = target;
+                updateNavbar(target);
+                triggerReveals(sections[target]);
+
+                // Clear the hash so back-navigation works cleanly
+                history.replaceState(null, '', window.location.pathname);
+            })();
         })();
     </script>
 </body>

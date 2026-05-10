@@ -587,18 +587,20 @@
 
             // Wheel
             window.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                if (isAnimating) { wheelAcc = 0; return; }
-                const sec     = sections[current];
-                const ovY     = window.getComputedStyle(sec).overflowY;
+                if (isAnimating) { e.preventDefault(); wheelAcc = 0; return; }
+                const sec        = sections[current];
+                const ovY        = window.getComputedStyle(sec).overflowY;
                 const scrollable = (ovY === 'auto' || ovY === 'scroll')
                                    && sec.scrollHeight > sec.clientHeight + 2;
                 if (scrollable) {
                     const atTop    = sec.scrollTop <= 1;
                     const atBottom = sec.scrollTop + sec.clientHeight >= sec.scrollHeight - 2;
+                    // Not at boundary — let browser scroll the section naturally
                     if (e.deltaY > 0 && !atBottom) { wheelAcc = 0; return; }
                     if (e.deltaY < 0 && !atTop)    { wheelAcc = 0; return; }
                 }
+                // At boundary or non-scrollable — take over and snap
+                e.preventDefault();
                 wheelAcc += e.deltaY;
                 clearTimeout(wheelTimer);
                 wheelTimer = setTimeout(() => { wheelAcc = 0; }, 200);
