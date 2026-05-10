@@ -279,7 +279,7 @@
         }
 
         @media (max-width: 768px) {
-            .about-content-section { padding: 80px 5% 30px; }
+            .about-content-section { padding: 90px 5% 30px; } /* 90px = navbar + breathing room */
             .about-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 40px; }
             .about-grid.reverse { direction: ltr; }
             .about-text h2 { font-size: 2rem; letter-spacing: -1px; }
@@ -290,7 +290,9 @@
             .manifesto-grid { grid-template-columns: 1fr; gap: 16px; }
             .manifesto-card { padding: 24px; }
             .manifesto-card h4 { font-size: 1.1rem; }
-            .about-hero { padding-top: 80px; }
+            /* Hero: push title below navbar */
+            .about-hero { padding-top: 90px; justify-content: flex-start; }
+            
         }
 
         @media (max-width: 480px) {

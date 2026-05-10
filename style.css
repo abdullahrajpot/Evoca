@@ -2233,20 +2233,20 @@ a {
         height: auto;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 80px 5% 24px;
+        justify-content: flex-start;   /* stack from top, no big gaps */
+        padding: 72px 5% 16px;
         gap: 0;
         overflow: hidden;
     }
 
-    /* Carousel: static block in the flow */
+    /* Carousel: bigger can */
     .hero-carousel {
         position: relative;
         top: auto; left: auto; transform: none;
         width: 100%;
-        height: 50vw;
-        min-height: 220px;
-        max-height: 360px;
+        height: 58vw;
+        min-height: 240px;
+        max-height: 400px;
         flex-shrink: 0;
         margin-top: 0;
     }
@@ -2254,12 +2254,29 @@ a {
     .carousel-stage { overflow: visible; }
 
     .carousel-can img {
-        height: 48vw;
-        min-height: 210px;
-        max-height: 340px;
+        height: 56vw;
+        min-height: 230px;
+        max-height: 380px;
     }
 
-    /* Bottom content: static in flow, centred */
+    /* Side info: 2-col grid — appears right after the can, before badge/title */
+    .hero-sides-container {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 12px;
+        width: 100%;
+        max-width: 380px;
+        margin-top: 10px;
+        margin-bottom: 0;
+        position: static;
+        z-index: 10;
+    }
+    .hero-side        { gap: 8px; text-align: left; }
+    .hero-side.right  { text-align: right; }
+    .side-info-item h3 { font-size: 9px; margin-bottom: 2px; }
+    .side-info-item p  { font-size: 8px; }
+
+    /* Bottom content: tight spacing */
     .hero-bottom-content {
         position: relative;
         bottom: auto; left: auto; transform: none;
@@ -2306,25 +2323,9 @@ a {
         justify-content: center;
     }
 
-    /* Side info: 2-col grid BELOW the buttons */
-    .hero-sides-container {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-        gap: 6px 14px;
-        width: 100%;
-        max-width: 380px;
-        margin-top: 14px;
-        position: static;
-        z-index: 10;
-    }
-    .hero-side        { gap: 10px; text-align: left; }
-    .hero-side.right  { text-align: right; }
-    .side-info-item h3 { font-size: 9.5px; margin-bottom: 2px; }
-    .side-info-item p  { font-size: 8.5px; }
-
     .hero-fade-overlay {
         width: 100%;
-        height: 80px;
+        height: 60px;
         border-radius: 0;
         bottom: 0;
     }
@@ -2583,19 +2584,54 @@ a {
 }
 
 /* ════════════════════════════════════════════════════════════
-   MOBILE — reduce vertical spacing between sections
+   MOBILE — consistent vertical spacing, all pages
    ════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-    /* Hero excluded — it has its own mobile rules */
+
+    /* ── Home hero: remove excess bottom space ── */
+    .hero {
+        min-height: unset !important;   /* don't force full viewport — let content size it */
+        padding-top: 90px !important;   /* navbar height + gap below it */
+        padding-bottom: 24px !important;
+    }
+
+    /* ── About hero: push title below navbar ── */
+    .about-hero {
+        padding-top: 100px !important;  /* navbar (~70px) + 30px breathing room */
+        padding-bottom: 30px;
+        justify-content: flex-start !important;
+    }
+
+    /* ── All other sections: equal top/bottom ── */
     .product-showcase,
     .campaign-system,
     .campaign-reach,
     .signature-concept,
     .zero-section,
     .footer,
-    .about-content-section,
-    .about-hero {
+    .about-content-section {
         padding-top: 70px;
         padding-bottom: 30px;
     }
+
+    /* ── Distributors & Contact page header ── */
+    .page-header {
+        padding-top: 140px;
+        padding-bottom: 24px;
+    }
+
+    .distributors-section,
+    .contact-section {
+        padding-top: 24px;
+        padding-bottom: 40px;
+    }
+
+    .distributor-grid { gap: 16px; }
+    .distributor-card { padding: 24px; }
+
+    .contact-container { gap: 30px; }
+    .contact-form      { padding: 30px 20px; }
+    .form-grid         { gap: 16px; margin-bottom: 16px; }
 }
+
+/* navbar margin-bottom removed — padding-top on sections handles the gap */
