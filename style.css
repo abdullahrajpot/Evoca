@@ -105,13 +105,6 @@ html.snap-page {
         overflow: visible;
     }
 }
-        overflow: visible;
-    }
-    .snap-section--scroll,
-    .snap-section[data-index="4"] {
-        overflow: visible;
-    }
-}
 
 html {
     scroll-behavior: smooth;
@@ -2236,11 +2229,12 @@ a {
 
     /* Hero: flex column, vertically centred */
     .hero {
-        min-height: 100svh;
+        min-height: unset;
+        height: auto;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 80px 6% 16px;
+        justify-content: flex-start;
+        padding: 70px 5% 20px;
         gap: 0;
         overflow: hidden;
     }
@@ -2250,9 +2244,9 @@ a {
         position: relative;
         top: auto; left: auto; transform: none;
         width: 100%;
-        height: 42vw;
-        min-height: 200px;
-        max-height: 310px;
+        height: 36vw;
+        min-height: 170px;
+        max-height: 260px;
         flex-shrink: 0;
         margin-top: 0;
     }
@@ -2260,9 +2254,9 @@ a {
     .carousel-stage { overflow: visible; }
 
     .carousel-can img {
-        height: 40vw;
-        min-height: 190px;
-        max-height: 295px;
+        height: 34vw;
+        min-height: 160px;
+        max-height: 245px;
     }
 
     /* Bottom content: static in flow, centred */
@@ -2272,8 +2266,8 @@ a {
         width: 100%;
         max-width: 100%;
         padding: 0;
-        margin-top: 12px;
-        gap: 12px;
+        margin-top: 10px;
+        gap: 10px;
         text-align: center;
         align-items: center;
     }
@@ -2312,14 +2306,14 @@ a {
         justify-content: center;
     }
 
-    /* Side info: 2-col grid BELOW the buttons (comes after in DOM) */
+    /* Side info: 2-col grid BELOW the buttons */
     .hero-sides-container {
         display: grid !important;
         grid-template-columns: 1fr 1fr;
-        gap: 8px 16px;
+        gap: 6px 14px;
         width: 100%;
         max-width: 380px;
-        margin-top: 18px;
+        margin-top: 14px;
         position: static;
         z-index: 10;
     }
@@ -2524,4 +2518,90 @@ a {
     .zero-heading    { font-size: 2rem !important; }
     .concept-heading { font-size: 1.6rem; }
     .header-main     { font-size: 1.5rem; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   GLOBAL ALIGNMENT — consistent left/right margins everywhere
+   Desktop: 8% horizontal padding on all sections
+   Mobile:  5% horizontal padding on all sections
+   All inner containers: max-width 1300px, centred
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Desktop: enforce 8% on every section ── */
+.hero,
+.product-showcase,
+.campaign-system,
+.campaign-reach,
+.signature-concept,
+.zero-section,
+.footer,
+.page-header,
+.contact-section,
+.distributors-section,
+.about-content-section,
+.about-hero {
+    padding-left: 8%;
+    padding-right: 8%;
+    box-sizing: border-box;
+}
+
+/* ── All inner max-width containers: centred ── */
+.hero-sides-container,
+.showcase-container,
+.campaign-header,
+.campaign-grid,
+.concept-grid,
+.zero-container,
+.footer-container,
+.page-header-container,
+.contact-container,
+.distributor-grid,
+.about-container {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+/* ── Mobile: enforce 5% on every section ── */
+@media (max-width: 768px) {
+    .hero,
+    .product-showcase,
+    .campaign-system,
+    .campaign-reach,
+    .signature-concept,
+    .zero-section,
+    .footer,
+    .page-header,
+    .contact-section,
+    .distributors-section,
+    .about-content-section,
+    .about-hero {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE — reduce vertical spacing between sections
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .hero,
+    .product-showcase,
+    .campaign-system,
+    .campaign-reach,
+    .signature-concept,
+    .zero-section,
+    .footer,
+    .about-content-section,
+    .about-hero {
+        padding-top: 70px;
+        padding-bottom: 30px;
+    }
+
+    /* First section needs more top to clear the fixed navbar */
+    .snap-section[data-index="0"] > main.hero,
+    .snap-section[data-index="0"] > section.about-hero {
+        padding-top: 80px;
+    }
 }
