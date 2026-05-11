@@ -2227,151 +2227,140 @@ a {
    ─────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
 
-    /* Hero: flex column, vertically centred */
+    /* Hero: fills viewport, elements spread vertically */
     .hero {
-        min-height: 100svh;
-        height: auto;
+        min-height: 100svh !important;
+        height: 100svh !important;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;   /* stack from top, no big gaps */
-        padding: 72px 5% 16px;
+        justify-content: space-between;  /* spread all elements top to bottom */
+        padding: 90px 5% 28px !important;
         gap: 0;
         overflow: hidden;
     }
 
-    /* Carousel: bigger can */
+    /* Carousel: taller can, side padding for margins, no bottom gap */
     .hero-carousel {
         position: relative;
         top: auto; left: auto; transform: none;
         width: 100%;
-        height: 58vw;
-        min-height: 240px;
-        max-height: 400px;
+        padding: 0 12%;        /* left/right margin via padding */
+        height: 46vh;
+        min-height: 230px;
+        max-height: 460px;
         flex-shrink: 0;
         margin-top: 0;
+        margin-bottom: 0;
+        flex: 0 0 auto;
+        box-sizing: border-box;
     }
 
     .carousel-stage { overflow: visible; }
 
     .carousel-can img {
-        height: 56vw;
-        min-height: 230px;
-        max-height: 380px;
+        height: 44vh;
+        min-height: 220px;
+        max-height: 440px;
+        margin: 0;
+        width: auto;
     }
 
-    /* Side info: 2-col grid — appears right after the can, before badge/title */
+    /* Side info: sits immediately below the can */
     .hero-sides-container {
         display: grid !important;
         grid-template-columns: 1fr 1fr;
-        gap: 4px 12px;
+        gap: 10px 14px;
         width: 100%;
-        max-width: 380px;
-        margin-top: 10px;
-        margin-bottom: 0;
+        max-width: 100%;
+        margin: 0;
         position: static;
         z-index: 10;
+        flex: 0 0 auto;
     }
     .hero-side        { gap: 8px; text-align: left; }
     .hero-side.right  { text-align: right; }
-    .side-info-item h3 { font-size: 9px; margin-bottom: 2px; }
-    .side-info-item p  { font-size: 8px; }
+    .side-info-item h3 { font-size: 13px; margin-bottom: 3px; }
+    .side-info-item p  { font-size: 11.5px; }
 
-    /* Bottom content: tight spacing */
+    /* Bottom content: more gap between elements to fill vacant space */
     .hero-bottom-content {
         position: relative;
         bottom: auto; left: auto; transform: none;
         width: 100%;
         max-width: 100%;
         padding: 0;
-        margin-top: 10px;
-        gap: 10px;
+        margin: 0;
+        gap: 18px;
         text-align: center;
         align-items: center;
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 auto;
     }
 
     .hero-badge {
-        font-size: 0.65rem;
+        font-size: 0.75rem;
         letter-spacing: 1.5px;
-        padding: 7px 14px;
+        padding: 9px 18px;
         white-space: nowrap;
+        margin-top: 0;
     }
 
     .hero-main-title h1 {
-        font-size: clamp(1.8rem, 7vw, 2.8rem);
+        font-size: clamp(2.2rem, 8.5vw, 3.2rem);
         letter-spacing: -1px;
         line-height: 1;
     }
 
     .hero-main-title .title-sub {
-        font-size: 0.78rem;
-        letter-spacing: 2px;
+        font-size: 0.9rem;
+        letter-spacing: 2.5px;
     }
 
     .hero-actions {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         width: 100%;
-        margin-top: 4px;
+        margin-top: 0;
     }
 
     .hero-actions .btn {
         width: 100%;
-        max-width: 280px;
+        max-width: 100%;
         text-align: center;
         display: flex;
         justify-content: center;
+        font-size: 0.85rem;
+        padding: 14px 20px;
     }
 
-    .hero-fade-overlay {
-        width: 100%;
-        height: 60px;
-        border-radius: 0;
-        bottom: 0;
-    }
+    .hero-fade-overlay { display: none; }
 }
 
 /* Large phone landscape (max 640px) */
 @media (max-width: 640px) {
-    .hero-carousel {
-        height: 48vw;
-        max-height: 340px;
-    }
-    .carousel-can img {
-        height: 46vw;
-        max-height: 320px;
-    }
-    .hero-main-title h1 { font-size: clamp(1.7rem, 6.5vw, 2.4rem); }
+    .hero-carousel { height: 42vh; max-height: 440px; }
+    .carousel-can img { height: 40vh; max-height: 420px; }
+    .hero-main-title h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
 }
 
 /* Small phone (max 480px) */
 @media (max-width: 480px) {
-    .hero { padding: 80px 5% 32px; }
-    .hero-carousel {
-        height: 52vw;
-        max-height: 300px;
-    }
-    .carousel-can img {
-        height: 50vw;
-        max-height: 280px;
-    }
-    .hero-main-title h1 { font-size: clamp(1.55rem, 6vw, 2.1rem); }
-    .hero-actions .btn  { font-size: 0.75rem; padding: 11px 18px; }
+    .hero { padding: 88px 5% 24px !important; }
+    .hero-carousel { height: 40vh; max-height: 380px; }
+    .carousel-can img { height: 38vh; max-height: 360px; }
+    .hero-main-title h1 { font-size: clamp(1.9rem, 7.5vw, 2.5rem); }
+    .hero-actions .btn { font-size: 0.8rem; padding: 13px 18px; }
 }
 
 /* Very small phone (max 360px) */
 @media (max-width: 360px) {
-    .hero { padding: 75px 4% 28px; }
-    .hero-carousel {
-        height: 56vw;
-        max-height: 260px;
-    }
-    .carousel-can img {
-        height: 54vw;
-        max-height: 240px;
-    }
-    .hero-main-title h1 { font-size: 1.45rem; }
-    .hero-badge { font-size: 0.58rem; padding: 6px 10px; }
+    .hero { padding: 80px 4% 20px !important; }
+    .hero-carousel { height: 38vh; max-height: 320px; }
+    .carousel-can img { height: 36vh; max-height: 300px; }
+    .hero-main-title h1 { font-size: 1.8rem; }
+    .hero-badge { font-size: 0.65rem; padding: 7px 12px; }
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -2588,11 +2577,12 @@ a {
    ════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-    /* ── Home hero: remove excess bottom space ── */
+    /* ── Home hero: fills viewport, no excess bottom space ── */
     .hero {
-        min-height: unset !important;   /* don't force full viewport — let content size it */
-        padding-top: 90px !important;   /* navbar height + gap below it */
-        padding-bottom: 24px !important;
+        min-height: 100svh !important;
+        height: 100svh !important;
+        padding-top: 150px !important;
+        padding-bottom: 16px !important;
     }
 
     /* ── About hero: push title below navbar ── */
